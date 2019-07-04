@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zte.dao.CommentDao">
+    <resultMap id="Comment" type="CommentResultMap">
+        <id column="id" property="id"/>
+        <result column="orders_id" property="ordersId"/>
+        <result column="comment" property="comment"/>
+        <result column="create_time" property="createTime"/>
+        <result column="news_id" property="newsId"/>
+    </resultMap>
+    <select id="select" resultType="Comment">
+        select id,orders_id,comment,create_time,news_id from comment
+        where orders_id = #{_parameter}
+    </select>
+    
+    <delete id="delete">
+        delete from comment where id = #{_parameter}
+    </delete>
+    
+    <insert id="insert">
+        insert into comment (id,orders_id,comment,create_time,news_id) values (#{id},#{ordersId},#{comment},#{createTime},#{newsId})
+    </insert>
+
+    <select id="selectByNews" resultMap="Comment">
+        select id,orders_id,comment,create_time,news_id from comment
+        where news_id = #{newsId}
+    </select>
+</mapper>
